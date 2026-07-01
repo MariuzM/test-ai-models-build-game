@@ -14,7 +14,7 @@ Each directory is one model's answer — a self-contained Cargo project you can 
 | --- | --- | --- |
 | [`2026-07-01-claude-opus-4.8-high/`](2026-07-01-claude-opus-4.8-high/) | Claude Opus 4.8 | Pixel Slime |
 | [`2026-07-01-codex-gpt-high/`](2026-07-01-codex-gpt-high/) | Codex (GPT, high) | Dusk Runner |
-| [`2026-07-01-claude-sonet-5/`](2026-07-01-claude-sonet-5/) | Claude Sonnet 5 | Ember Knight |
+| [`2026-07-01-claude-sonet-5-high/`](2026-07-01-claude-sonet-5-high/) | Claude Sonnet 5 | Ember Knight |
 
 ## Running an entry
 
