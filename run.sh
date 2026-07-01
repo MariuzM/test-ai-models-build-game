@@ -13,8 +13,9 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 # Map a few friendly aliases to a substring found in the directory name.
 alias_for() {
     case "$1" in
-        slime|claude|opus) echo "claude" ;;
+        slime|opus) echo "opus" ;;
         dusk|runner|codex|gpt) echo "codex" ;;
+        knight|ember|sonnet|sonet) echo "sonet-5" ;;
         *) echo "$1" ;;
     esac
 }

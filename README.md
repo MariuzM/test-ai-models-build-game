@@ -12,8 +12,9 @@ Each directory is one model's answer — a self-contained Cargo project you can 
 
 | Directory | Model | Game |
 | --- | --- | --- |
-| [`2026-07-01-claude-opus-4.8/`](2026-07-01-claude-opus-4.8/) | Claude Opus 4.8 | Pixel Slime |
+| [`2026-07-01-claude-opus-4.8-high/`](2026-07-01-claude-opus-4.8-high/) | Claude Opus 4.8 | Pixel Slime |
 | [`2026-07-01-codex-gpt-high/`](2026-07-01-codex-gpt-high/) | Codex (GPT, high) | Dusk Runner |
+| [`2026-07-01-claude-sonet-5/`](2026-07-01-claude-sonet-5/) | Claude Sonnet 5 | Ember Knight |
 
 ## Running an entry
 
@@ -23,8 +24,9 @@ Use the helper script from the repo root (name matching is fuzzy, with a few ali
 
 ```sh
 ./run.sh            # list the entries
-./run.sh dusk       # Dusk Runner  (aliases: dusk, runner, codex, gpt)
-./run.sh slime      # Pixel Slime  (aliases: slime, claude, opus)
+./run.sh dusk       # Dusk Runner   (aliases: dusk, runner, codex, gpt)
+./run.sh slime      # Pixel Slime   (aliases: slime, opus)
+./run.sh knight     # Ember Knight  (aliases: knight, ember, sonnet, sonet)
 ```
 
 It builds with `--release` by default; pass your own cargo flags to override, e.g.
