@@ -95,25 +95,11 @@ const SLIME: [&str; 11] = [
 ];
 
 const COIN: [&str; 8] = [
-    "..KKKK..",
-    ".KywyyK.",
-    "KyywyyyK",
-    "KyywyyyK",
-    "KyyyyyyK",
-    "KYyyyyYK",
-    ".KYyyYK.",
-    "..KKKK..",
+    "..KKKK..", ".KywyyK.", "KyywyyyK", "KyywyyyK", "KyyyyyyK", "KYyyyyYK", ".KYyyYK.", "..KKKK..",
 ];
 
 const SPIKE: [&str; 8] = [
-    "...KK...",
-    "..KssK..",
-    "..KssK..",
-    ".KssssK.",
-    ".KssssK.",
-    "KsSSSSsK",
-    "KSSSSSSK",
-    "KKKKKKKK",
+    "...KK...", "..KssK..", "..KssK..", ".KssssK.", ".KssssK.", "KsSSSSsK", "KSSSSSSK", "KKKKKKKK",
 ];
 
 fn sprite_color(ch: u8) -> (Color, bool) {
@@ -289,7 +275,11 @@ impl Game {
 
         let coin_arc = |g: &mut Game, x: f32, y: f32, n: i32| {
             for i in 0..n {
-                g.coins.push(Coin { x: x + i as f32 * 14.0, y, taken: false });
+                g.coins.push(Coin {
+                    x: x + i as f32 * 14.0,
+                    y,
+                    taken: false,
+                });
                 g.coins_total += 1;
             }
         };
@@ -324,7 +314,12 @@ impl Game {
     }
 
     fn player_box(&self) -> Rect {
-        Rect { x: self.player.pos.x, y: self.player.pos.y, w: PLAYER_W, h: PLAYER_H }
+        Rect {
+            x: self.player.pos.x,
+            y: self.player.pos.y,
+            w: PLAYER_W,
+            h: PLAYER_H,
+        }
     }
 
     fn die(&mut self) {
@@ -424,11 +419,7 @@ impl Game {
         self.player.squash = move_toward(self.player.squash, 0.0, dt * 6.0);
 
         let target_cam = self.player.pos.x + PLAYER_W * 0.5 - VW * 0.40;
-        self.g_cam = move_toward(
-            self.g_cam,
-            target_cam,
-            (target_cam - self.g_cam).abs() * dt * 8.0 + 1.0,
-        );
+        self.g_cam = move_toward(self.g_cam, target_cam, (target_cam - self.g_cam).abs() * dt * 8.0 + 1.0);
         if self.g_cam < 0.0 {
             self.g_cam = 0.0;
         }
@@ -441,7 +432,12 @@ impl Game {
             if coin.taken {
                 continue;
             }
-            let cb = Rect { x: coin.x, y: coin.y, w: 8.0, h: 8.0 };
+            let cb = Rect {
+                x: coin.x,
+                y: coin.y,
+                w: 8.0,
+                h: 8.0,
+            };
             if aabb(b, cb) {
                 coin.taken = true;
             }
@@ -449,7 +445,12 @@ impl Game {
 
         let mut died = false;
         for it in self.spikes.iter() {
-            let hb = Rect { x: it.x + 1.0, y: it.y + 3.0, w: it.w - 2.0, h: it.h - 3.0 };
+            let hb = Rect {
+                x: it.x + 1.0,
+                y: it.y + 3.0,
+                w: it.w - 2.0,
+                h: it.h - 3.0,
+            };
             if aabb(b, hb) {
                 died = true;
             }
@@ -494,13 +495,7 @@ impl Game {
                     continue;
                 }
                 let col = if flip { w - 1 - cx } else { cx };
-                self.rect_v(
-                    at_x + col as f32 * cw,
-                    at_y + ry as f32 * ch,
-                    cw + 0.05,
-                    ch + 0.05,
-                    color,
-                );
+                self.rect_v(at_x + col as f32 * cw, at_y + ry as f32 * ch, cw + 0.05, ch + 0.05, color);
             }
         }
     }
@@ -517,13 +512,7 @@ impl Game {
                 let row = glyph[gy].as_bytes();
                 for gx in 0..3 {
                     if row[gx] == b'#' {
-                        self.rect_v(
-                            cx + gx as f32 * cell,
-                            y + gy as f32 * cell,
-                            cell + 0.05,
-                            cell + 0.05,
-                            color,
-                        );
+                        self.rect_v(cx + gx as f32 * cell, y + gy as f32 * cell, cell + 0.05, cell + 0.05, color);
                     }
                 }
             }
@@ -538,13 +527,7 @@ impl Game {
     }
 
     fn dim(&self) {
-        draw_rectangle(
-            0.0,
-            0.0,
-            screen_width(),
-            screen_height(),
-            col4(0.0, 0.0, 0.0, 0.55),
-        );
+        draw_rectangle(0.0, 0.0, screen_width(), screen_height(), col4(0.0, 0.0, 0.0, 0.55));
     }
 
     fn render(&mut self) {
@@ -672,13 +655,7 @@ impl Game {
 
         for i in 0..8 {
             let w = 18.0 - i as f32 * 2.0;
-            self.rect_w(
-                fx + 3.0,
-                HORIZON - 47.0 + i as f32 * 2.0,
-                w,
-                2.0,
-                col4(0.92, 0.26, 0.30, 1.0),
-            );
+            self.rect_w(fx + 3.0, HORIZON - 47.0 + i as f32 * 2.0, w, 2.0, col4(0.92, 0.26, 0.30, 1.0));
         }
         self.rect_w(fx - 2.0, HORIZON - 2.0, 7.0, 2.0, col4(0.3, 0.3, 0.34, 1.0));
     }
@@ -710,13 +687,7 @@ impl Game {
         let flip = self.player.facing < 0.0;
         self.draw_sprite_xy(&SLIME, base_x, base_y, cw, ch, flip);
 
-        self.rect_w(
-            self.player.pos.x + 1.0,
-            HORIZON - 2.0,
-            PLAYER_W - 2.0,
-            2.0,
-            col4(0.0, 0.0, 0.0, 0.15),
-        );
+        self.rect_w(self.player.pos.x + 1.0, HORIZON - 2.0, PLAYER_W - 2.0, 2.0, col4(0.0, 0.0, 0.0, 0.15));
     }
 
     fn draw_hud(&self) {
@@ -760,12 +731,7 @@ impl Game {
 }
 
 fn lerp_color(a: Color, b: Color, t: f32) -> Color {
-    Color::new(
-        a.r + (b.r - a.r) * t,
-        a.g + (b.g - a.g) * t,
-        a.b + (b.b - a.b) * t,
-        a.a + (b.a - a.a) * t,
-    )
+    Color::new(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t, a.a + (b.a - a.a) * t)
 }
 
 fn window_conf() -> Conf {

@@ -37,7 +37,12 @@ struct Platform {
 
 impl Default for FRect {
     fn default() -> Self {
-        FRect { x: 0.0, y: 0.0, w: 0.0, h: 0.0 }
+        FRect {
+            x: 0.0,
+            y: 0.0,
+            w: 0.0,
+            h: 0.0,
+        }
     }
 }
 
@@ -198,7 +203,12 @@ impl Game {
         self.platforms = plats
             .iter()
             .map(|p| Platform {
-                rect: FRect { x: p[0], y: p[1], w: p[2], h: p[3] },
+                rect: FRect {
+                    x: p[0],
+                    y: p[1],
+                    w: p[2],
+                    h: p[3],
+                },
             })
             .collect();
 
@@ -224,7 +234,11 @@ impl Game {
         ];
         self.gems = gem_data
             .iter()
-            .map(|d| Gem { x: d[0], y: d[1], taken: false })
+            .map(|d| Gem {
+                x: d[0],
+                y: d[1],
+                taken: false,
+            })
             .collect();
 
         let enemy_data: [[f32; 5]; 6] = [
@@ -390,7 +404,12 @@ impl Game {
             if !it.taken
                 && overlaps(
                     pr,
-                    FRect { x: it.x - 3.0, y: it.y - 4.0, w: 7.0, h: 9.0 },
+                    FRect {
+                        x: it.x - 3.0,
+                        y: it.y - 4.0,
+                        w: 7.0,
+                        h: 9.0,
+                    },
                 )
             {
                 it.taken = true;
@@ -417,7 +436,12 @@ impl Game {
                 it.x = it.right;
                 it.vx = -it.vx.abs();
             }
-            let er = FRect { x: it.x, y: it.y, w: 13.0, h: 12.0 };
+            let er = FRect {
+                x: it.x,
+                y: it.y,
+                w: 13.0,
+                h: 12.0,
+            };
             if overlaps(pr, er) {
                 if self.player.vy > 25.0 && old_bottom <= it.y + 5.0 {
                     it.alive = false;
@@ -591,13 +615,7 @@ impl Game {
         for yy in 0..5 {
             for gx in 0..3 {
                 if rows[yy] & (1 << (2 - gx)) != 0 {
-                    self.box_(
-                        x + (gx as f32) * scale,
-                        y + (yy as f32) * scale,
-                        scale,
-                        scale,
-                        col,
-                    );
+                    self.box_(x + (gx as f32) * scale, y + (yy as f32) * scale, scale, scale, col);
                 }
             }
         }
@@ -638,13 +656,7 @@ impl Game {
         self.world_box(2046.0, 99.0, 25.0, 3.0, INK);
         let glow = (self.game_time * 8.0) as i32 % 3;
         let glowf = glow as f32;
-        self.world_box(
-            2054.0 - glowf,
-            111.0 - glowf,
-            8.0 + glowf * 2.0,
-            9.0 + glowf * 2.0,
-            c(103, 66, 65, 255),
-        );
+        self.world_box(2054.0 - glowf, 111.0 - glowf, 8.0 + glowf * 2.0, 9.0 + glowf * 2.0, c(103, 66, 65, 255));
         self.world_box(2056.0, 113.0, 6.0, 7.0, GOLD);
         self.world_box(2057.0, 114.0, 4.0, 4.0, CREAM);
 
@@ -660,7 +672,14 @@ impl Game {
         for i in 0..3 {
             self.draw_heart(12.0 + (i * 11) as f32, 11.0, i < self.player.hearts);
         }
-        self.draw_gem(&Gem { x: self.camera_x + 57.0, y: 15.0, taken: false }, 0);
+        self.draw_gem(
+            &Gem {
+                x: self.camera_x + 57.0,
+                y: 15.0,
+                taken: false,
+            },
+            0,
+        );
         let tens = self.player.gems / 10;
         let ones = self.player.gems % 10;
         if tens > 0 {
@@ -671,13 +690,7 @@ impl Game {
 
         self.box_(242.0, 9.0, 69.0, 4.0, INK);
         self.box_(243.0, 10.0, 67.0 * self.player.x / (WORLD_W - 90.0), 2.0, GOLD);
-        self.box_(
-            242.0 + 67.0 * self.player.x / (WORLD_W - 90.0),
-            8.0,
-            2.0,
-            6.0,
-            CREAM,
-        );
+        self.box_(242.0 + 67.0 * self.player.x / (WORLD_W - 90.0), 8.0, 2.0, 6.0, CREAM);
     }
 
     fn draw_title(&mut self) {
@@ -786,9 +799,7 @@ async fn main() {
             break;
         }
 
-        let jump_pressed = is_key_pressed(KeyCode::Space)
-            || is_key_pressed(KeyCode::Up)
-            || is_key_pressed(KeyCode::W);
+        let jump_pressed = is_key_pressed(KeyCode::Space) || is_key_pressed(KeyCode::Up) || is_key_pressed(KeyCode::W);
         let start_pressed = is_key_pressed(KeyCode::Space) || is_key_pressed(KeyCode::Enter);
         let restart_pressed = is_key_pressed(KeyCode::R);
 
